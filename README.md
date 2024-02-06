@@ -8,7 +8,13 @@ Data in this repository concists of CSV and Excel files:
 - busan_street.xlsx
 - green_index_result_26cutting.csv   
 
-## 
+## Spatial interpolation
+The filename 'busan201819.csv' is a dataset collected from hedonic variables used to estimate property prices. What each column means can be seen in detail through the paper as well.   
+
+The columns required for generating the green index are as follows:   
+- x: Longitude in the Cartesian coordinate system
+- y: Latitude in the Cartesian coordinate system
+- 
 
 ## Green Indices' Spatial Distribution   
 The pydeck library is a set of Python binding for making spatial visualizations (https://pydeck.gl/). We used these library for visualization of interpolated green indices and roadside trees in Busan.   
