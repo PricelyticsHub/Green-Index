@@ -1,4 +1,4 @@
-$$\Laplace$$
+$$\Delta$$
 
 # Green Index Data Records   
 We devised the new index called 'Green Index', based on street image in Busan in 2017 and 2018.   
