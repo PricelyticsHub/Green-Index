@@ -12,9 +12,10 @@ Data in this repository concists of CSV and Excel files:
 In order to calculate the green index, it is necessary to convert GSV images to HSV images.   
 
 ## Calculating Green Index
-The codename '' is a code that calculating green index as follows:   
+The codename '' is a code that calculating green index as follows: 
+'''
 $$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$   
-
+'''
 From this step, we can extract the pure greenness from the pedestrian's point of view.
 
 ## Spatial Interpolation
