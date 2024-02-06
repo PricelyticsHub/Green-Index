@@ -22,7 +22,9 @@ The filename 'busan201819.csv' is a dataset collected from hedonic variables use
 The columns required for generating the green index are as follows:   
 - x: Longitude in the Cartesian coordinate system
 - y: Latitude in the Cartesian coordinate system
-- 
+
+The mathematical form of haversine formula is implemented by 'ㅇㅇㅇ' as follows:
+$$d_{haversine} = 2 * R * arcsin(sqrt{sin^2(frac{\Laplace lat}{2})+cos(lat_{p})*cos(lat_{g})*sin^2(frac{\Laplace lng}{2})$$
 
 ## Green Indices' Spatial Distribution   
 The pydeck library is a set of Python binding for making spatial visualizations (https://pydeck.gl/). We used these library for visualization of interpolated green indices and roadside trees in Busan.   
