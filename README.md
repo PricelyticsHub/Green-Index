@@ -24,7 +24,7 @@ The columns required for generating the green index are as follows:
 - y: Latitude in the Cartesian coordinate system
 
 The mathematical form of haversine formula is implemented by 'ㅇㅇㅇ' as follows:
-$$d_{haversine} = 2 * R * arcsin(sqrt{sin^2 (frac{\Delta lat}{2})+cos (lat_{p}) * cos (lat_{g}) * sin^2(frac{\Delta lng}{2})$$
+$$d_{\text{haversine}} = 2*R \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
 
 ## Green Indices' Spatial Distribution   
 The pydeck library is a set of Python binding for making spatial visualizations (https://pydeck.gl/). We used these library for visualization of interpolated green indices and roadside trees in Busan.   
