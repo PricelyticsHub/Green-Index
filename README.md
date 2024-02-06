@@ -9,6 +9,7 @@ Data in this repository concists of CSV and Excel files:
 - green_index_result_26cutting.csv
 
 ## Image Preprocessing
+In order to calculate the green index, it is necessary to convert GSV images to HSV images.   
 
 ## Calculating Green Index
 The codename '' is a code that calculating green index as follows:   
