@@ -6,9 +6,16 @@ Data in this repository concists of CSV and Excel files:
 
 - busan201819.csv
 - busan_street.xlsx
-- green_index_result_26cutting.csv   
+- green_index_result_26cutting.csv
 
-## Spatial interpolation
+## Image Preprocessing
+
+## Calculating Green Index
+The codename '' is a code that calculating green index as follows:   
+
+Green index_i=〖pixel〗_(non-zero)/〖pixel〗_total×100
+
+## Spatial Interpolation
 The filename 'busan201819.csv' is a dataset collected from hedonic variables used to estimate property prices. What each column means can be seen in detail through the paper as well.   
 
 The columns required for generating the green index are as follows:   
