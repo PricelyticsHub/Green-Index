@@ -13,8 +13,9 @@ In order to calculate the green index, it is necessary to convert GSV images to 
 
 ## Calculating Green Index
 The codename '' is a code that calculating green index as follows:   
-$$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$
+$$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$   
 
+From this step, we can extract the pure greenness from the pedestrian's point of view.
 
 ## Spatial Interpolation
 The filename 'busan201819.csv' is a dataset collected from hedonic variables used to estimate property prices. What each column means can be seen in detail through the paper as well.   
