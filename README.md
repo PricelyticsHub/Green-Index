@@ -12,7 +12,7 @@ Data in this repository concists of CSV and Excel files:
 
 ## Calculating Green Index
 The codename '' is a code that calculating green index as follows:   
-$Green\index_{i} = pixel_{non-zero}/pixel_{total} * 100$
+$Green  index_{i} = pixel_{non-zero}/pixel_{total} * 100$
 
 
 ## Spatial Interpolation
