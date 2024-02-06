@@ -13,9 +13,9 @@ In order to calculate the green index, it is necessary to convert GSV images to 
 
 ## Calculating Green Index
 The codename '' is a code that calculating green index as follows: 
-'''
-$$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$   
-'''
+
+`$$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$`   
+
 From this step, we can extract the pure greenness from the pedestrian's point of view.
 
 ## Spatial Interpolation
@@ -26,7 +26,7 @@ The columns required for generating the green index are as follows:
 - y: Latitude in the Cartesian coordinate system
 
 The mathematical form of haversine formula is implemented by 'ㅇㅇㅇ' as follows:
-$$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
+`$$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$`
 
 ## Green Indices' Spatial Distribution   
 The pydeck library is a set of Python binding for making spatial visualizations (https://pydeck.gl/). We used these library for visualization of interpolated green indices and roadside trees in Busan.   
