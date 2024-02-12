@@ -4,9 +4,7 @@ Four-step process is necessary to effectively implement the green index, and for
 
 Data in this repository concists of CSV and Excel files:   
 
-<mark>
-  - busan201819.csv --> 관련 샘플 파일들 쓰기
-</mark>
+<mark>busan201819.csv --> 관련 샘플 파일들 쓰기</mark>
 
 ## Image Preprocessing
 In order to calculate the green index, it is necessary to convert GSV images to HSV images.   
