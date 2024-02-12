@@ -8,7 +8,8 @@ Data in this repository concists of CSV and Excel files:
 **ex. busan201819.csv --> 관련 샘플 파일들 쓰기**
 
 ## Image Preprocessing
-In order to calculate the green index, it is necessary to convert GSV images to HSV images.   
+In order to calculate the green index, it is necessary to convert GSV images to HSV images.<br/>
+In this regard, it can be implemented through the **OOO** code.<br/>
 
 ## Calculating Green Index
 The codename '' is a code that calculating green index as follows: 
