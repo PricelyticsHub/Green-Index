@@ -4,9 +4,9 @@ Four-step process is necessary to effectively implement the green index, and for
 
 Data in this repository concists of CSV and Excel files:   
 
-- busan201819.csv
-- busan_street.xlsx
-- green_index_result_26cutting.csv
+<span style = 'background-color: #fff5b1'>
+  - busan201819.csv --> 관련 샘플 파일들 쓰기
+</span>
 
 ## Image Preprocessing
 In order to calculate the green index, it is necessary to convert GSV images to HSV images.   
@@ -31,7 +31,7 @@ $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{
 ## Green Indices' Spatial Distribution   
 The pydeck library is a set of Python binding for making spatial visualizations (https://pydeck.gl/). We used these library for visualization of interpolated green indices and roadside trees in Busan.   
 
-<img src = "/image/green_index.png" width = "60%">   
+<img src = "/README_image/green_index.png" width = "60%">   
 
 Each white circle indicates the location of roadside tree and the cuboid represents each green index calculated for the property transaction points. The more greenness has the higher height of cuboid. The sample dataset is in    
 The related code was wirtten based on the colab.   
