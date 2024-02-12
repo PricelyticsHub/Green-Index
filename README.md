@@ -9,21 +9,22 @@ Data in this repository concists of CSV and Excel files:
 
 ## Image Preprocessing
 In order to calculate the green index, it is necessary to convert GSV images to HSV images.<br/>
-In this regard, it can be implemented through the **OOO** code.<br/>
+In this regard, it can be implemented through the **OOO** code.  
 
 ## Calculating Green Index
-The codename '' is a code that calculating green index as follows: 
+The codename **OOO** is a code that calculating green index as follows: 
 
 $$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$   
 
 From this step, we can extract the pure greenness from the pedestrian's point of view.
 
 ## Spatial Interpolation
-The filename 'busan201819.csv' is a dataset collected from hedonic variables used to estimate property prices. What each column means can be seen in detail through the paper as well.   
+The filename **OOO** is a dataset collected from hedonic variables used to estimate property prices. What each column means can be seen in detail through the paper as well.   
 
-The columns required for generating the green index are as follows:   
+The columns required to effectively manage the green index are as follows:   
 - x: Longitude in the Cartesian coordinate system
 - y: Latitude in the Cartesian coordinate system
+- HGVI: The degree of street greenness from the pedestrian perspective
 
 The mathematical form of haversine formula is implemented by 'ㅇㅇㅇ' as follows:
 $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
@@ -33,5 +34,5 @@ The pydeck library is a set of Python binding for making spatial visualizations 
 
 <img src = "/README_image/green_index.png" width = "60%">   
 
-Each white circle indicates the location of roadside tree and the cuboid represents each green index calculated for the property transaction points. The more greenness has the higher height of cuboid. The sample dataset is in    
+Each white circle indicates the location of roadside tree and the cuboid represents each green index calculated for the property transaction points. The more greenness has the higher height of cuboid. The sample dataset is in the filenamed **OOO**.<br/>
 The related code was wirtten based on the colab.   
