@@ -8,7 +8,7 @@ Data in this repository concists of CSV and Excel files:
 **ex. busan201819.csv --> 관련 샘플 파일들 쓰기**
 
 ## Image Preprocessing
-In order to calculate the green index, it is necessary to convert GSV images to HSV images.<br/>
+In order to calculate the green index, it is necessary to convert GSV images to HSV images.  
 In this regard, it can be implemented through the **OOO** code.  
 
 ## Calculating Green Index
@@ -34,5 +34,5 @@ The pydeck library is a set of Python binding for making spatial visualizations 
 
 <img src = "/README_image/green_index.png" width = "60%">   
 
-Each white circle indicates the location of roadside tree and the cuboid represents each green index calculated for the property transaction points. The more greenness has the higher height of cuboid. The sample dataset is in the filenamed **OOO**.<br/>
+Each white circle indicates the location of roadside tree and the cuboid represents each green index calculated for the property transaction points. The more greenness has the higher height of cuboid. The sample dataset is in the filenamed **OOO**.  
 The related code was wirtten based on the colab.   
