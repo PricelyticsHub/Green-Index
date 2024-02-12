@@ -1,6 +1,6 @@
 # Green Index Data Records   
 We devised the new index called 'Green Index', based on street image in Busan in 2017 and 2018. 
-<br>
+  
 Four-step process is necessary to effectively implement the green index, and for a detailed explanation, please refer to the paper(https://doi.org/10.1038/s41598-023-49845-0), and sample data was stored in the 'data' folder to facilitate this implementation.   
 
 Data in this repository concists of CSV and Excel files:   
