@@ -10,8 +10,8 @@ import json
 from IPython.display import HTML
 import colorsys
 
-mapbox_key =  # write your mapbox key
-directory = # write your directory
+mapbox_key =  ''# write your mapbox key
+directory = ''# write your directory
 
 # convert csv to json
 street_path = directory + '부산가로수.csv' # csv file for street trees location
@@ -158,12 +158,12 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 driver = webdriver.Chrome(options=chrome_options)
 driver.set_window_size(2560, 1440)
 
-file_path = '/content/result.html'
+file_path = ''# Set html saved path
 driver.get('file://' + file_path)
 
 time.sleep(10)
 
-screenshot_path = '/content/screenshot.png'
+screenshot_path = ''# Write the path you want to save
 driver.save_screenshot(screenshot_path)
 driver.quit()
 
