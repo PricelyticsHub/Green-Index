@@ -156,7 +156,6 @@ chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
 
 driver = webdriver.Chrome(options=chrome_options)
-# 해상도 조정하기:)
 driver.set_window_size(2560, 1440)
 
 file_path = '/content/result.html'
