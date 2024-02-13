@@ -33,7 +33,7 @@ The mathematical form of haversine formula is implemented by **OOO** as follows:
 $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
 
 ## Green Indices' Spatial Distribution   
-The [pydeck library](https://pydeck.gl/) (version 0.8.0) is a set of Python binding for making spatial visualizations. We used these library for visualization of interpolated green indices and roadside trees in Busan.   
+[The pydeck library](https://pydeck.gl/) (version 0.8.0) is a set of Python binding for making spatial visualizations. We used these library for visualization of interpolated green indices and roadside trees in Busan.   
 
 <img src = "/README_image/green_index.png" width = "60%">   
 
