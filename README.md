@@ -1,5 +1,5 @@
 # Green Index Data Records   
-<img src="[https://img.shields.io/badge/Google Colab-F9ABOO?style=for-the-badge&logo=Google Colab&logoColor=white](https://colab.research.google.com/img/colab_favicon_256px.png)">
+<img src="https://img.shields.io/badge/Google Colab-F9ABOO?style=for-the-badge&logo=Google Colab&logoColor=white", link='https://colab.google/'>
 We devised the new index called 'Green Index', based on street image in Busan in 2017 and 2018. 
 
 To derive the green index, we went through the process of collecting GSV images, converting to HSV, calculating green index, and spatial interpolation.
