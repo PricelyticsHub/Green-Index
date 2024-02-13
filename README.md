@@ -38,4 +38,4 @@ $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{
 <img src = "/README_image/green_index.png" width = "60%">   
 
 Each white circle indicates the location of roadside tree and the cuboid represents each green index calculated for the property transaction points. The more greenness has the higher height of cuboid. The sample dataset is in the filenamed **OOO**.  
-The related code was wirtten based on the colab and the relevant libraries and code details are detailed in the codename ```spatial_distribution.py```.   
+The related code was wirtten based on the colab and the relevant libraries and code details were detailed in the codename ```spatial_distribution.py```.   
