@@ -14,7 +14,7 @@ In order to calculate the green index, it is necessary to convert GSV images to 
 In this regard, it can be implemented through the **OOO** code.  
 
 ## Calculating Green Index
-The codename **OOO** is a code that calculating green index as follows: 
+The codename **OOO** is a code that calculates the green index with the HSV image as follows:
 
 $$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$   
 
@@ -28,7 +28,7 @@ The columns required to effectively manage the green index are as follows:
 - y: Latitude in the Cartesian coordinate system
 - HGVI: The degree of street greenness from the pedestrian perspective
 
-The mathematical form of haversine formula is implemented by 'ㅇㅇㅇ' as follows:
+The mathematical form of haversine formula is implemented by **OOO** as follows:
 $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
 
 ## Green Indices' Spatial Distribution   
