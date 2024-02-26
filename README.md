@@ -15,14 +15,24 @@ Data in this repository concists of CSV and Excel files:
 ## Image Preprocessing
 In order to calculate the green index, it is necessary to convert GSV images to HSV images:    
 
-```
+```python
 import warning
+import cv2
 
 warnings.filterwarnings('ignore')
 
 lower_green = (40, 45, 30)
 upper_green = (177, 177, 177)
 
+green_indices = []
+
+for i, n in enumerate(os.listdir()):
+  lng, lat, year, month = i.split(sep=' ')
+  month = month[:-4]
+  img = mpimg.imread(i, cv2.IMREAD_COLOR)
+
+  img_copy = img.copy()
+  
 
 ```
 
