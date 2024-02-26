@@ -8,13 +8,23 @@ This four-step process is necessary to effectively implement the green index, an
 
 Data in this repository concists of CSV and Excel files:   
 
-- *Data.csv*
-- *Green Index.csv*
-- *Green.csv*
+- *Data.csv*: Location of transaction sample data
+- *Green.csv*: Roadside trees location and green index sample data
+- *Green Index.csv*: Final green index using spatial interpolation method
 
 ## Image Preprocessing
-In order to calculate the green index, it is necessary to convert GSV images to HSV images.  
-In this regard, it can be implemented through the **OOO** code.  
+In order to calculate the green index, it is necessary to convert GSV images to HSV images:    
+
+```
+import warning
+
+warnings.filterwarnings('ignore')
+
+lower_green = (40, 45, 30)
+upper_green = (177, 177, 177)
+
+
+```
 
 ## Calculating Green Index
 The codename **OOO** is a code that calculates the green index with the HSV image as follows:
