@@ -8,6 +8,8 @@ This four-step process is necessary to effectively implement the green index, an
 
 Data in this repository concists of CSV and Excel files:   
 
+- Data.xlsx
+- 
 **ex. busan201819.csv --> 관련 샘플 파일들 쓰기**
 
 ## Image Preprocessing
