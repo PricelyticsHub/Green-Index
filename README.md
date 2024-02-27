@@ -63,6 +63,7 @@ It can be tested with images from the *'GSV IMAGE'* folder, and the resulting im
 <img src = "/IMAGE/128.831857 35.090245 2017 11.jpg" width = "100%"> 
 
 ## Spatial Interpolation
+Spatial interpolation step is necessary to address the challenges caused by uneven spatial distribution of green index.   
 To take advantage of spatial interpolation, use the sample file named *'Data.csv'* and *Green.csv*.    
 The columns required to effectively manage the green index are as follows:   
 - x: Longitude in the Cartesian coordinate system
