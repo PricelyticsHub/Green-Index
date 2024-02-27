@@ -75,8 +75,11 @@ The columns required to effectively manage the green index are as follows:
 The mathematical form of haversine formula to use spatial interpolation is as follows:
 $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
 
-<img src = "/README_image/spatial interpolation.png" width = "100%"> 
-
+<p align="center">
+  <img src = "/README_image/spatial interpolation.png" width = "60%"> 
+</p>
+   
+The following code uses the harversine formula to adjust the green index in the 50 images closest to the transaction point and final result file is in *Green Index.csv*
 ```python
 import pandas as pd
 from haversine import haversine
@@ -116,4 +119,3 @@ data_df['Green Index'] = Aggregated_Green_Index
 data_df['Green Index_d'] = Aggregated_Green_Index_Distance
 data_df.to_csv('Write your path',index=False,encoding='utf-8-sig')
 ```
-The final result file is in *Green Index.csv*
