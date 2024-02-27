@@ -12,9 +12,13 @@ Data in this repository concists of CSV and Excel files:
 - *Green.csv*: Roadside trees location and green index sample data
 - *Green Index.csv*: Final green index using spatial interpolation method
 
-## Image Preprocessing
-In order to calculate the green index, it is necessary to convert GSV images to HSV images:    
+## Image Preprocessing and Calculating Green Index
+In order to calculate the green index, it is necessary to convert GSV images to HSV images.    
+For ease of data mapping, the name of the roadside tree image file was saved as longitude, latitude, and transaction date.   
+After preprocessing, the green index was calculated using the following method:   
+$$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$   
 
+The following code is to perform this step:   
 ```python
 import warning
 import cv2
@@ -33,31 +37,202 @@ for i, n in enumerate(os.listdir()):
 
   img_copy = img.copy()
   
+  img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+  img_mask = cv2.inRange(img_hsv, lower_green, upper_green)
+  img_result = cv2.bitwise_and(img, img, mask=img_mask)
 
-```
+  nonmasked_index = np.where((img_result[:,:,0] != 0) & (img_result[:,:,1] != 0) & (img_result[:, :, 2] != 0))
 
-## Calculating Green Index
-The codename **OOO** is a code that calculates the green index with the HSV image as follows:
+  green_pixels = len(img_result[nonmasked_index])
+  total_pixels = img_result.shape[0] * img_result.shape[1]
 
-$$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$   
+  green_index = (green_pixels/total_pixels) * 100
 
-From this step, we can extract the pure greenness from the pedestrian's point of view.
+  # if green_index < cutoff:
+  green_indices.append([lng, lat, year, month, green_index])
+  if (n % 100000) == 0:
+    print(f'''{n} ing...''')
+
+green_indices = pd.DataFrame(green_indices, columns = ['Longitude', 'Latitude', 'Year', 'Month', 'Green Index'])
+green_indices.to_csv('Write your save path',index=False,encoding='utf-8-sig')
+```   
+From this step, we can extract the pure greenness from the pedestrian's point of view    
+It can be tested with images from the *'GSV IMAGE'* folder, and the resulting image is stored in the *'IMAGE'* folder.   
+
+<img src = "/IMAGE/128.831857 35.090245 2017 11.jpg" width = "100%"> 
 
 ## Spatial Interpolation
-The filename **OOO** is a dataset collected from hedonic variables used to estimate property prices. What each column means can be seen in detail through the paper as well.   
-
+To take advantage of spatial interpolation, use the sample file named *'Data.csv'* and *Green.csv*.    
 The columns required to effectively manage the green index are as follows:   
 - x: Longitude in the Cartesian coordinate system
 - y: Latitude in the Cartesian coordinate system
-- HGVI: The degree of street greenness from the pedestrian perspective
+- Longitude: Longitude of roadside trees
+- Latitude: Latitude of roadside trees
+- Green Index: Index calculated by the above steps
 
-The mathematical form of haversine formula is implemented by **OOO** as follows:
+The mathematical form of haversine formula to use spatial interpolation is as follows:
 $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
+
+```python
+import pandas as pd
+from haversine import haversine
+
+busan_df = pd.read_('Write your path\Data.csv')
+green_df = pd.read_csv('Write your path\Green.csv')
+
+
+```
 
 ## Green Indices' Spatial Distribution   
 [The pydeck library](https://pydeck.gl/) (version 0.8.0) is a set of Python binding for making spatial visualizations. We used these library for visualization of interpolated green indices and roadside trees in Busan.   
 
-<img src = "/README_image/green_index.png" width = "60%">   
+Each white circle indicates the location of roadside tree and the cuboid represents each green index calculated for the property transaction points. The more greenness has the higher height of cuboid. The sample dataset is in the filenamed *'Green Index.csv'* and *'Green.csv'*.  
+The related code is as follows:
+```python
+!pip install pydeck
+!pip install geemap
+!pip install imgkit
+!pip install selenium
+```
+```python
+import pydeck as pdk
+import pandas as pd
+import csv
+import json
+from IPython.display import HTML
+import colorsys
 
-Each white circle indicates the location of roadside tree and the cuboid represents each green index calculated for the property transaction points. The more greenness has the higher height of cuboid. The sample dataset is in the filenamed **OOO**.  
-The related code was wirtten based on the colab and the relevant libraries and code details were detailed in the codename ```spatial_distribution.py```.   
+mapbox_key =  ''# write your mapbox key
+
+#convert csv to json
+street_path = 'Your path' + 'Green.csv'
+street = pd.read_csv(street_path)
+
+with open(street_path, 'r') as f:
+  reader = csv.reader(f)
+  next(reader)
+
+  data = []
+  for line in reader:
+    d = {
+      'latitude': line[0] # latitude column
+      'longitude': line[1] # longitude column
+    }
+    data.append(d)
+
+json_string = json.dumps(data, ensure_ascii=False, indent=2)
+txt_file_path = directory + 'data.txt'
+
+with open(txt_file_path, 'w', encoding='utf-8') as f:
+  f.write(json_string)
+
+with open(txt_file_path, 'r') as f:
+  geo_street = json.load(f)
+
+# convert green index csv to json
+path = directory + 'Green Index.csv' # green index file
+hedonic = pd.read_csv(path)
+
+with open(path, 'r') as f:
+  reader = csv.reader(f)
+  next(reader)
+
+  data = []
+  for line in reader:
+    d = {
+      'latitude': line[6]  # latitude column
+      'longitude': line[5]  # longitude column
+      'properties': {
+        'green index': line[32]}  # green index column
+    }
+    data.append(d)
+
+json_string = json.dumps(data, ensure_ascii=False, indent=2)
+
+txt_file_path = directory + 'green_data.txt'
+
+with open(txt_file_path, 'w', encoding='utf-8') as f:
+  f.write(json_string)
+
+with open(txt_file_path, 'r') as f:
+  geo = json.load(f)
+
+# plotting value as point and cuboid
+busan_mini = busan[['x', 'y', 'HGVI_50']].copy()
+
+max_index_value = max(float(item["properties"]["green index"]) for item in geo)
+min_index_value = min(float(item["properties"]["green index"]) for item in geo)
+
+pdk.settings.mapbox_key = mapbox_key
+
+# Scaling values
+def minmax(value, min_value, max_value):
+    return (value - min_value) / (max_value - min_value)
+
+# Value-based color assignment
+def calculate_color(item):
+    index_value = float(item["properties"]["green index"])
+    minmax_value = minmax(index_value, min_index_value, max_index_value)
+    return [0, 255*minmax_value, 255*(1-minmax_value), 255]
+
+# Value-based height assignment
+def calculate_elevation(item):
+    index_value2 = float(item["properties"]["green index"])
+    minmax_value = minmax(index_value2, min_index_value, max_index_value)
+    return minmax_value * 3000
+
+geo_street_transformed_2 = [
+    {"longitude": float(item["longitude"]), "latitude": float(item["latitude"])}
+    for item in geo_street
+]
+
+geo_transformed_2 = [
+    {
+        "longitude": float(item["longitude"]),
+        "latitude": float(item["latitude"]),
+        "color": calculate_color(item),
+        "elevation": calculate_elevation(item)  # elevation은 집값
+    }
+    for item in geo
+]
+
+elevation_values = [int(item['elevation']) for item in geo_transformed_2]
+max_elevation = max(elevation_values)
+
+color_values = [item['color'] for item in geo_transformed_2]
+
+busan_mini['elevation'] = elevation_values
+busan_mini['color'] = color_values
+
+lon, lat = 129.0708802, 35.1153616 # Choose a point of view to visualize
+
+# Visualize the values of two layers at once
+layer11 = pdk.Layer(
+    'ScatterplotLayer',
+    geo_street_transformed_2,
+    get_position = '[longitude, latitude]',
+    get_color = '[255, 255, 255, 255]',
+    get_radius=100
+)
+
+layer22 = pdk.Layer(
+    'ColumnLayer',
+    busan_mini,
+    extruded=True,
+    get_position='[x,y]',
+    get_fill_color = 'color',
+    get_elevation='elevation',
+    elevation_scale=1,
+    elevation_range=[0, max_elevation],
+    pickable=True,
+    auto_highlight=True,
+    radius=100,
+    opacity= 0.01
+)
+
+view_state = pdk.ViewState(longitude= lon, latitude= lat, zoom=12.5, pitch=70, bearing=-27.36)
+r = pdk.Deck(layers=[layer11, layer22], initial_view_state=view_state)
+data_result = r.to_html('result.html',as_string=True)
+```   
+
+<img src = "/README_image/green_index.png" width = "60%">   
