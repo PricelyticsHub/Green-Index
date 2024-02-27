@@ -131,8 +131,6 @@ import pydeck as pdk
 import pandas as pd
 import csv
 import json
-from IPython.display import HTML
-import colorsys
 
 mapbox_key =  'Write your mapbox key'
 
@@ -146,10 +144,7 @@ with open(street_path, 'r') as f:
 
   data = []
   for line in reader:
-    d = {
-      'latitude': line[0] # latitude column
-      'longitude': line[1] # longitude column
-    }
+    d = {'latitude': line[0], 'longitude': line[1]}
     data.append(d)
 
 json_string = json.dumps(data, ensure_ascii=False, indent=2)
@@ -174,9 +169,7 @@ with open(path, 'r') as f:
     d = {
       'latitude': line[0]  # latitude column
       'longitude': line[1]  # longitude column
-      'properties': {
-        'green index': line[2]}  # green index column
-    }
+      'properties': {'green index': line[2]}  # green index column}
     data.append(d)
 
 json_string = json.dumps(data, ensure_ascii=False, indent=2)
@@ -215,13 +208,11 @@ def calculate_elevation(item):
 
 geo_street_transformed_2 = [
     {"longitude": float(item["longitude"]), "latitude": float(item["latitude"])}
-    for item in geo_street
-]
+    for item in geo_street]
 
 geo_transformed_2 = [
     {"longitude": float(item["longitude"]), "latitude": float(item["latitude"]), "color": calculate_color(item), "elevation": calculate_elevation(item)}
-    for item in geo
-]
+    for item in geo]
 
 elevation_values = [int(item['elevation']) for item in geo_transformed_2]
 max_elevation = max(elevation_values)
@@ -239,8 +230,7 @@ layer11 = pdk.Layer(
     geo_street_transformed_2,
     get_position = '[longitude, latitude]',
     get_color = '[255, 255, 255, 255]',
-    get_radius=100
-)
+    get_radius=100)
 
 layer22 = pdk.Layer(
     'ColumnLayer',
@@ -254,8 +244,7 @@ layer22 = pdk.Layer(
     pickable=True,
     auto_highlight=True,
     radius=100,
-    opacity= 0.01
-)
+    opacity= 0.01)
 
 view_state = pdk.ViewState(longitude= lon, latitude= lat, zoom=12.5, pitch=70, bearing=-27.36)
 r = pdk.Deck(layers=[layer11, layer22], initial_view_state=view_state)
