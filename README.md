@@ -75,6 +75,8 @@ The columns required to effectively manage the green index are as follows:
 The mathematical form of haversine formula to use spatial interpolation is as follows:
 $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
 
+<img src = "/README_IMAGE/spatial interpolation.png" width = "100%"> 
+
 ```python
 import pandas as pd
 from haversine import haversine
