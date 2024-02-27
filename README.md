@@ -46,6 +46,7 @@ for i, n in enumerate(os.listdir()):
   green_pixels = len(img_result[nonmasked_index])
   total_pixels = img_result.shape[0] * img_result.shape[1]
 
+  #Calculate Green Index
   green_index = (green_pixels/total_pixels) * 100
 
   # if green_index < cutoff:
@@ -77,11 +78,42 @@ $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{
 import pandas as pd
 from haversine import haversine
 
-busan_df = pd.read_('Write your path\Data.csv')
+data_df = pd.read_('Write your path\Data.csv')
 green_df = pd.read_csv('Write your path\Green.csv')
 
 
+Aggregated_Green_Index = []
+Aggregated_Green_Index_Distance = []
+
+
+num = 1
+for y, x, ind in zip(data_df['y'], data_df['x'], data_df.index):
+  distance = []
+
+  for gr_y, gr_x, hgvi in zip(green_df['Latitude'], green_df['Longitude'], green_df['Green Index']):
+    dis = haversine([y,x], [gr_y, gr_x], unit='km')
+    distance.append([x,y,gr_x,gr_y,dis,hgvi])
+  dis_df = pd.DataFrame(distance)
+  dis_df.columns = ['x','y','gr_x','gr_y','distance','HGVI']
+  dis_df = dis_df.sort_values('distance', ascending=True)
+
+  # Extract the 50 nearest roadside trees
+  dis_df_50 = dis_df.iloc[:50]
+
+  mean_hgvi_50 = dis_df_50['HGVI'].mean()
+  mean_dis_50 = dis_df_50['distance'].mean()
+
+  Aggregated_Green_Index.append(mean_hgvi_50)
+  Aggregated_Green_Index_Distance.append(mean_dis_50)
+
+  if (ind % 10000) == 0:
+    print(f'''{ind} ing...''')
+
+data_df['Green Index'] = Aggregated_Green_Index
+data_df['Green Index_d'] = Aggregated_Green_Index_Distance
+data_df.to_csv('Write your path',index=False,encoding='utf-8-sig')
 ```
+The result file is in *Green Index.csv*.
 
 ## Green Indices' Spatial Distribution   
 [The pydeck library](https://pydeck.gl/) (version 0.8.0) is a set of Python binding for making spatial visualizations. We used these library for visualization of interpolated green indices and roadside trees in Busan.   
@@ -102,7 +134,7 @@ import json
 from IPython.display import HTML
 import colorsys
 
-mapbox_key =  ''# write your mapbox key
+mapbox_key =  'Write your mapbox key'
 
 #convert csv to json
 street_path = 'Your path' + 'Green.csv'
@@ -140,10 +172,10 @@ with open(path, 'r') as f:
   data = []
   for line in reader:
     d = {
-      'latitude': line[6]  # latitude column
-      'longitude': line[5]  # longitude column
+      'latitude': line[0]  # latitude column
+      'longitude': line[1]  # longitude column
       'properties': {
-        'green index': line[32]}  # green index column
+        'green index': line[2]}  # green index column
     }
     data.append(d)
 
@@ -158,7 +190,7 @@ with open(txt_file_path, 'r') as f:
   geo = json.load(f)
 
 # plotting value as point and cuboid
-busan_mini = busan[['x', 'y', 'HGVI_50']].copy()
+data_mini = data[['x', 'y', 'Green Index']].copy()
 
 max_index_value = max(float(item["properties"]["green index"]) for item in geo)
 min_index_value = min(float(item["properties"]["green index"]) for item in geo)
@@ -187,12 +219,7 @@ geo_street_transformed_2 = [
 ]
 
 geo_transformed_2 = [
-    {
-        "longitude": float(item["longitude"]),
-        "latitude": float(item["latitude"]),
-        "color": calculate_color(item),
-        "elevation": calculate_elevation(item)  # elevation은 집값
-    }
+    {"longitude": float(item["longitude"]), "latitude": float(item["latitude"]), "color": calculate_color(item), "elevation": calculate_elevation(item)}
     for item in geo
 ]
 
@@ -201,8 +228,8 @@ max_elevation = max(elevation_values)
 
 color_values = [item['color'] for item in geo_transformed_2]
 
-busan_mini['elevation'] = elevation_values
-busan_mini['color'] = color_values
+data_mini['elevation'] = elevation_values
+data_mini['color'] = color_values
 
 lon, lat = 129.0708802, 35.1153616 # Choose a point of view to visualize
 
@@ -217,7 +244,7 @@ layer11 = pdk.Layer(
 
 layer22 = pdk.Layer(
     'ColumnLayer',
-    busan_mini,
+    data_mini,
     extruded=True,
     get_position='[x,y]',
     get_fill_color = 'color',
