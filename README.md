@@ -1,24 +1,24 @@
 # Green Index Data Records   
 <img src="https://img.shields.io/badge/Google Colab-F9ABOO?style=for-the-badge&logo=Google Colab&logoColor=white" link='https://colab.google/'> <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">  
-We devised the new index called 'Green Index', based on street image in Busan in 2017 and 2018. 
+We introduce an indicator called 'green index', based on the google street view (GSV) images in Busan. 
 
-To derive the green index, we went through the process of collecting GSV images, converting to HSV, calculating green index, and spatial interpolation.
+To derive the green index, **we went through the process of collecting GSV images, converting to HSV, calculating green index, and spatial interpolation.**
   
-This four-step process is necessary to effectively implement the green index, and for a detailed explanation, please refer to the [paper](https://doi.org/10.1038/s41598-023-49845-0), and sample data was stored in the 'data' folder to facilitate this implementation.   
+This four-step process is necessary to effectively compute the green index, and for a detailed explanation, please refer to the [paper](https://doi.org/10.1038/s41598-023-49845-0), and sample data was stored in the *'Data'* folder to replicate this calculation.   
 
-Data in this repository concists of CSV and Excel files:   
+Data in this repository concists of CSV files:   
 
 - *Data.csv*: Location of transaction sample data
-- *Green.csv*: Roadside trees location and green index sample data
-- *Green Index.csv*: Final green index using spatial interpolation method
+- *Green.csv*: Calculated street greenness and its location
+- *Green Index_Spatial interpolation.csv*: **Final green index using spatial interpolation method**
 
 ## Image Preprocessing and Calculating Green Index
-In order to calculate the green index, it is necessary to convert GSV images to HSV images.    
-For ease of data mapping, the name of the roadside tree image file was saved as longitude, latitude, and transaction date.   
-After preprocessing, the green index was calculated using the following method:   
+In order to calculate the green index, it is necessary to convert red, green, and blue color space to hue, satuation, and value color space.    
+Street view image obtained from GSV download tool should contain latitude and longitude tokens in file name; thus, the saved image file name is  ‘_latitude_ _longitude_.jpg’. These two tokens are required for employing spatial interpolation method. So, the target property should also include the location information, i.e., latitude and longitude.   
+After preprocessing, the green index is calculated as follows:   
 $$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$   
 
-The following code is to perform this step:   
+The following code is to perform above step:   
 ```python
 import warning
 import cv2
@@ -49,37 +49,38 @@ for i, n in enumerate(os.listdir()):
   #Calculate Green Index
   green_index = (green_pixels/total_pixels) * 100
 
-  # if green_index < cutoff:
   green_indices.append([lng, lat, year, month, green_index])
-  if (n % 100000) == 0:
-    print(f'''{n} ing...''')
 
 green_indices = pd.DataFrame(green_indices, columns = ['Longitude', 'Latitude', 'Year', 'Month', 'Green Index'])
 green_indices.to_csv('Write your save path',index=False,encoding='utf-8-sig')
 ```   
-From this step, we can extract the pure greenness from the pedestrian's point of view    
+From this step, we can obtain the street greenness in the view of pedestrian.     
 It can be tested with images from the *'GSV IMAGE'* folder, and the resulting image is stored in the *'IMAGE'* folder.   
 
 <img src = "/IMAGE/128.831857 35.090245 2017 11.jpg" width = "100%"> 
 
 ## Spatial Interpolation
-Spatial interpolation step is necessary to address the challenges caused by uneven spatial distribution of green index.   
-To take advantage of spatial interpolation, use the sample file named *'Data.csv'* and *Green.csv*.    
+Spatial interpolation step can be utilized to remedy the uneven spatial distribution of GSV images.   
+To implement the spatial interpolation method, refer to the sample data file named *'Data.csv'* and *Green.csv*.    
 The columns required to effectively manage the green index are as follows:   
+
+*Data.csv*
 - x: Longitude in the Cartesian coordinate system
 - y: Latitude in the Cartesian coordinate system
-- Longitude: Longitude of roadside trees
-- Latitude: Latitude of roadside trees
-- Green Index: Index calculated by the above steps
+   
+*Green.csv*
+- Longitude: Longitude of GSV image
+- Latitude: Latitude of GSV image
+- Green Index: Calculated street greenness
 
-The mathematical form of haversine formula to use spatial interpolation is as follows:
+Spatial interpolation requires the distance between two objects based on longitude and latitude. It can be obtained by using haversine formula as follows:
 $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
-
+   
 <p align="center">
   <img src = "/README_image/spatial interpolation.png" width = "60%"> 
-</p>
-   
-The following code uses the harversine formula to adjust the green index in the 50 images closest to the transaction point and final result file is in *Green Index.csv*
+</p>   
+
+The following code uses above mathematical form and adjust the green index in the 50 images closest to the transaction point as above image. The final result file is in *Green Index.csv*
 ```python
 import pandas as pd
 from haversine import haversine
