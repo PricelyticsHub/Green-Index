@@ -2,19 +2,24 @@
 <img src="https://img.shields.io/badge/Google Colab-F9ABOO?style=for-the-badge&logo=Google Colab&logoColor=white" link='https://colab.google/'> <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">  
 We introduce an indicator called 'green index', based on the google street view (GSV) images in Busan. 
 
-To derive the green index, **we went through the process of collecting GSV images, converting to HSV, calculating green index, and spatial interpolation.**
-  
+To derive the green index, we collect GSV images, convert to HSV, calculate green index and implement spatial interpolation.   
+<p align="center">
+  <img src = "README_image/four step process.png" width = "30%"> <br>
+  Figure 1. Steps to obtain green index
+</p>
+        
 This four-step process is necessary to effectively compute the green index, and for a detailed explanation, please refer to the [paper](https://doi.org/10.1038/s41598-023-49845-0), and sample data was stored in the *'Data'* folder to replicate this calculation.   
 
-Data in this repository concists of CSV files:   
+Data in this repository consists of CSV files:   
 
 - *Data.csv*: Location of transaction sample data
 - *Green.csv*: Calculated street greenness and its location
-- *Green Index_Spatial interpolation.csv*: green index using spatial interpolation method
+- *Green Index_Spatial Interpolation.csv*: Adjusted green index by implementing spatial interpolation
 
 ## Image Preprocessing and Calculating Green Index
 In order to calculate the green index, it is necessary to convert red, green, and blue color space to hue, satuation, and value color space.    
-Street view image obtained from GSV download tool should contain latitude and longitude tokens in file name; thus, the saved image file name is  ‘_latitude_ _longitude_.jpg’. These two tokens are required for employing spatial interpolation method. So, the target property should also include the location information, i.e., latitude and longitude.   
+Street view image obtained from GSV download tool should contain latitude and longitude tokens in file name; thus, the saved image file name is  ‘_latitude_ _longitude_.jpg’.    
+These two tokens are required for employing spatial interpolation method. So, the target property should also include the location information, i.e., latitude and longitude.   
 After preprocessing, the green index is calculated as follows:   
 $$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$   
 
@@ -57,7 +62,10 @@ green_indices.to_csv('Write your save path',index=False,encoding='utf-8-sig')
 From this step, we can obtain the street greenness in the view of pedestrian.     
 It can be tested with images from the *'GSV IMAGE'* folder, and the resulting image is stored in the *'IMAGE'* folder.   
 
-<img src = "/IMAGE/128.831857 35.090245 2017 11.jpg" width = "100%"> 
+<p align="center">
+  <img src = "/IMAGE/128.831857 35.090245 2017 11.jpg" width = "100%"> <br>
+  Figure 2. Visualization of street greenness in the view of pedestrian
+</p>
 
 ## Spatial Interpolation
 Spatial interpolation step can be utilized to remedy the uneven spatial distribution of GSV images.   
@@ -77,10 +85,11 @@ Spatial interpolation requires the distance between two objects based on longitu
 $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_p) \cos(\text{lat}_g) \sin^2\left(\frac{\Delta \text{lng}}{2}\right)}\right)$$
    
 <p align="center">
-  <img src = "/README_image/spatial interpolation.png" width = "60%"> 
+  <img src = "/README_image/spatial interpolation.png" width = "60%"> <br>
+  Figure 3. Graphical description of spatial interpolation
 </p>   
 
-The following code uses above mathematical form and aggregates the green index with 50 images closest to the transaction point. The final result file is in *Green Index.csv*
+The following code uses above mathematical form and aggregates the green index with 50 images closest to the transaction point. The final result file is in *Green Index_Spatial Interpolation.csv*
 ```python
 import pandas as pd
 from haversine import haversine
