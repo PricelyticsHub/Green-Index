@@ -10,7 +10,7 @@ Data in this repository concists of CSV files:
 
 - *Data.csv*: Location of transaction sample data
 - *Green.csv*: Calculated street greenness and its location
-- *Green Index_Spatial interpolation.csv*: **Final green index using spatial interpolation method**
+- *Green Index_Spatial interpolation.csv*: green index using spatial interpolation method
 
 ## Image Preprocessing and Calculating Green Index
 In order to calculate the green index, it is necessary to convert red, green, and blue color space to hue, satuation, and value color space.    
@@ -80,7 +80,7 @@ $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{
   <img src = "/README_image/spatial interpolation.png" width = "60%"> 
 </p>   
 
-The following code uses above mathematical form and adjust the green index in the 50 images closest to the transaction point as above image. The final result file is in *Green Index.csv*
+The following code uses above mathematical form and aggregates the green index with 50 images closest to the transaction point. The final result file is in *Green Index.csv*
 ```python
 import pandas as pd
 from haversine import haversine
@@ -104,7 +104,7 @@ for y, x, ind in zip(data_df['y'], data_df['x'], data_df.index):
   dis_df.columns = ['x','y','gr_x','gr_y','distance','HGVI']
   dis_df = dis_df.sort_values('distance', ascending=True)
 
-  # Extract the 50 nearest roadside trees
+  # Extract the 50 nearest green indices
   dis_df_50 = dis_df.iloc[:50]
 
   mean_hgvi_50 = dis_df_50['HGVI'].mean()
@@ -112,9 +112,6 @@ for y, x, ind in zip(data_df['y'], data_df['x'], data_df.index):
 
   Aggregated_Green_Index.append(mean_hgvi_50)
   Aggregated_Green_Index_Distance.append(mean_dis_50)
-
-  if (ind % 10000) == 0:
-    print(f'''{ind} ing...''')
 
 data_df['Green Index'] = Aggregated_Green_Index
 data_df['Green Index_d'] = Aggregated_Green_Index_Distance
