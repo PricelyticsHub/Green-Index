@@ -4,7 +4,7 @@ We introduce an indicator called 'green index', based on the google street view 
 
 To derive the green index, we collect GSV images, convert to HSV, calculate green index and implement spatial interpolation.   
 <p align="center">
-  <img src = "README_image/four step process.png" width = "30%"> <br>
+  <img src = "README_image/green index process.png" width = "30%"> <br>
   Figure 1. Steps to obtain green index
 </p>
         
