@@ -60,10 +60,10 @@ green_indices = pd.DataFrame(green_indices, columns = ['Longitude', 'Latitude', 
 green_indices.to_csv('Write your save path',index=False,encoding='utf-8-sig')
 ```   
 From this step, we can obtain the street greenness in the view of pedestrian.     
-It can be tested with images from the *'GSV IMAGE'* folder, and the resulting image is stored in the *'IMAGE'* folder.   
+It can be tested with images from the *'GSV IMAGE'* folder, and the resulting image is stored in the *'CONVERTED IMAGE'* folder.   
 
 <p align="center">
-  <img src = "/IMAGE/128.831857 35.090245 2017 11.jpg" width = "100%"> <br>
+  <img src = "/CONVERTED IMAGE/128.831857 35.090245 2017 11.jpg" width = "100%"> <br>
   Figure 2. Visualization of street greenness in the view of pedestrian
 </p>
 
