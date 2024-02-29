@@ -38,7 +38,6 @@ green_indices = []
 
 for i, n in enumerate(os.listdir()):
   lng, lat = i.split(sep=' ')
-  month = month[:-4]
   img = mpimg.imread(i, cv2.IMREAD_COLOR)
 
   img_copy = img.copy()
