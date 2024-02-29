@@ -63,7 +63,7 @@ From this step, we can obtain the street greenness in the view of pedestrian.
 It can be tested with images from the *'GSV IMAGE'* folder, and the resulting image is stored in the *'CONVERTED IMAGE'* folder.   
 
 <p align="center">
-  <img src = "/CONVERTED IMAGE/128.831857 35.090245 2017 11.jpg" width = "100%"> <br>
+  <img src = "/CONVERTED IMAGE/128.831857 35.090245.jpg" width = "100%"> <br>
   Figure 2. Visualization of street greenness in the view of pedestrian
 </p>
 
