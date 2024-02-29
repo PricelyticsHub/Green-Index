@@ -8,12 +8,13 @@ To derive the green index, we collect GSV images, convert to HSV, calculate gree
   Figure 1. Steps to obtain green index
 </p>
         
-This four-step process is necessary to effectively compute the green index, and for a detailed explanation, please refer to the [paper](https://doi.org/10.1038/s41598-023-49845-0), and sample data was stored in the *'Data'* folder to replicate this calculation.   
+This four-step process is necessary to effectively compute the green index, and for a detailed explanation, please refer to the [paper](https://doi.org/10.1038/s41598-023-49845-0), and sample data was stored in the *'DATA'* folder to replicate this calculation.   
 
 Data in this repository consists of CSV files:   
 
+- *calculated Greenness*: Converted value of GSV images in the *DATA* folder
 - *Data.csv*: Location of transaction sample data
-- *Green.csv*: Calculated street greenness and its location
+- *Street Greenness.csv*: Calculated street greenness and its location
 - *Green Index_Spatial Interpolation.csv*: Adjusted green index by implementing spatial interpolation
 
 ## Image Preprocessing and Calculating Green Index
@@ -36,7 +37,7 @@ upper_green = (177, 177, 177)
 green_indices = []
 
 for i, n in enumerate(os.listdir()):
-  lng, lat, year, month = i.split(sep=' ')
+  lng, lat = i.split(sep=' ')
   month = month[:-4]
   img = mpimg.imread(i, cv2.IMREAD_COLOR)
 
@@ -54,9 +55,9 @@ for i, n in enumerate(os.listdir()):
   #Calculate Green Index
   green_index = (green_pixels/total_pixels) * 100
 
-  green_indices.append([lng, lat, year, month, green_index])
+  green_indices.append([lng, lat, green_index])
 
-green_indices = pd.DataFrame(green_indices, columns = ['Longitude', 'Latitude', 'Year', 'Month', 'Green Index'])
+green_indices = pd.DataFrame(green_indices, columns = ['Longitude', 'Latitude', 'Green Index'])
 green_indices.to_csv('Write your save path',index=False,encoding='utf-8-sig')
 ```   
 From this step, we can obtain the street greenness in the view of pedestrian.     
@@ -69,14 +70,14 @@ It can be tested with images from the *'GSV IMAGE'* folder, and the resulting im
 
 ## Spatial Interpolation
 Spatial interpolation step can be utilized to remedy the uneven spatial distribution of GSV images.   
-To implement the spatial interpolation method, refer to the sample data file named *'Data.csv'* and *Green.csv*.    
+To implement the spatial interpolation method, refer to the sample data file named *'Data.csv'* and *Street Greenness.csv*.    
 The columns required to effectively manage the green index are as follows:   
 
 *Data.csv*
 - x: Longitude in the Cartesian coordinate system
 - y: Latitude in the Cartesian coordinate system
    
-*Green.csv*
+*Street Greenness.csv*
 - Longitude: Longitude of GSV image
 - Latitude: Latitude of GSV image
 - Green Index: Calculated street greenness
