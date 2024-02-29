@@ -12,7 +12,7 @@ This four-step process is necessary to effectively compute the green index, and 
 
 Data in this repository consists of CSV files:   
 
-- *Calculated Greenness.csv*: Converted value of GSV images in the *DATA* folder
+- *Calculated Greenness.csv*: Converted value data of GSV images in the *DATA* folder
 - *Data.csv*: Location of transaction sample data
 - *Street Greenness.csv*: Calculated street greenness and its location
 - *Green Index_Spatial Interpolation.csv*: Adjusted green index by implementing spatial interpolation
