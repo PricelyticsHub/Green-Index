@@ -10,8 +10,9 @@ To derive the green index, we collect GSV images, convert to HSV, calculate gree
         
 This four-step process is necessary to effectively compute the green index, and for a detailed explanation, please refer to the [paper](https://doi.org/10.1038/s41598-023-49845-0), and sample data was stored in the *'DATA'* folder to replicate this calculation.   
 
-Data in this repository consists of CSV files:   
+Data in this repository consists of Excel and CSV files:   
 
+- *Hedonic Dataset.xlsx*: Aggregated hedonic dataset of 52,644 observations with 27 variables
 - *Calculated Greenness.csv*: Converted value data of GSV images in the *GSV IMAGE* folder
 - *Data.csv*: Location of transaction sample data
 - *Street Greenness.csv*: Calculated street greenness and its location
@@ -73,8 +74,8 @@ To implement the spatial interpolation method, refer to the sample data file nam
 The columns required to effectively manage the green index are as follows:   
 
 *Data.csv*
-- x: Longitude in the Cartesian coordinate system
-- y: Latitude in the Cartesian coordinate system
+- x: Longitude in the Cartesian coordinate system of the transaction point
+- y: Latitude in the Cartesian coordinate system of the transaction point
    
 *Street Greenness.csv*
 - Longitude: Longitude of GSV image
@@ -89,7 +90,7 @@ $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{
   Figure 3. Graphical description of spatial interpolation
 </p>   
 
-The following code uses above mathematical form and aggregates the green index with 50 images closest to the transaction point. The final result file is in *Green Index_Spatial Interpolation.csv*
+The following code uses above mathematical form and aggregates the green index with 50 images closest to the transaction point. The final result file is in *Green Index_Spatial Interpolation.csv*.
 ```python
 import pandas as pd
 from haversine import haversine
@@ -126,3 +127,4 @@ data_df['Green Index'] = Aggregated_Green_Index
 data_df['Green Index_d'] = Aggregated_Green_Index_Distance
 data_df.to_csv('Write your path',index=False,encoding='utf-8-sig')
 ```
+Through this process, we can get the green index for all points of transaction and all information of hedonic variables including green index is in *Hedonic Dataset.xlsx*.
