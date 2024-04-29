@@ -12,7 +12,7 @@ This four-step process is necessary to effectively compute the green index, and 
 
 Data in this repository consists of Excel and CSV files:   
 
-- *Hedonic Dataset.xlsx*: Aggregated hedonic dataset of 52,644 observations with 27 variables
+- *Property Price and Green Index.xlsx*: Aggregated hedonic dataset of 52,644 observations with 27 variables
 - *Calculated Greenness.csv*: Converted value data of GSV images in the *GSV IMAGE* folder
 - *Data.csv*: Location of transaction sample data
 - *Street Greenness.csv*: Calculated street greenness and its location
