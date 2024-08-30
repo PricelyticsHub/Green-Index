@@ -65,7 +65,7 @@ It can be tested with images from the *'GSV IMAGE'* folder, and the resulting im
 
 <p align="center">
   <img src = "/CONVERTED IMAGE/128.831857 35.090245.jpg" width = "100%"> <br>
-  Figure 2. Visualization of street greenness in the view of pedestrian
+  ure 2. Visualization of street greenness in the view of pedestrian
 </p>
 
 ## Spatial Interpolation
@@ -238,5 +238,7 @@ r = pdk.Deck(layers=[layer11, layer22], initial_view_state=view_state)
 data_result = r.to_html('result.html',as_string=True)
 ```
 
-White circles indicate the location of roadside trees retrieved from the Busan Open Data Portal (https://data.busan.go.kr/dataSet/detail.nm?contentId=10&publicdatapk=15040363). The cuboids present the level of greenness assigned to each property; thus they indicate the aggregated green index through spatial interpolation. The height of a cuboid denotes the degree of greenness, that is, the higher the degree of greenness, the higher the height of the cuboid.
+Figure 4 illustrates the visualization results. White circles indicate the location of roadside trees retrieved from the Busan Open Data Portal (https://data.busan.go.kr/dataSet/detail.nm?contentId=10&publicdatapk=15040363). The cuboids present the level of greenness assigned to each property; thus they indicate the aggregated green index through spatial interpolation. The height of a cuboid denotes the degree of greenness, that is, the higher the degree of greenness, the higher the height of the cuboid.
+
+
 
