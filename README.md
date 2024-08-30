@@ -153,7 +153,7 @@ with open('Street_Greenness.csv', 'r') as f:
 
   data = []
   for line in reader:
-    d = {'latitude': line[0], 'longitude': line[1], }
+    d = {'latitude': line[0], 'longitude': line[1]}
     data.append(d)
 
 json_string = json.dumps(data, ensure_ascii=False, indent=2)
@@ -174,9 +174,7 @@ with open('Green Index_Spatial Interpolation.csv', 'r') as f:
 
     data = []
     for line in reader:
-        d = {
-            'latitude': line[6],
-            'longitude': line[5],
+        d = {'latitude': line[6], 'longitude': line[5],
             'properties': {
                 # 'price': line[1],
                 'green index': line[32]}
@@ -216,12 +214,7 @@ def calculate_elevation(item):
     return minmax_value * 3000
 
 geo_transformed_2 = [
-    {
-        "longitude": float(item["longitude"]),
-        "latitude": float(item["latitude"]),
-        "color": calculate_color(item),
-        "elevation": calculate_elevation(item)  # elevation indicates housing price
-    }
+    {"longitude": float(item["longitude"]), "latitude": float(item["latitude"]), "color": calculate_color(item), "elevation": calculate_elevation(item)  # elevation indicates housing price}
     for item in geo
 ]
 
@@ -237,28 +230,8 @@ busan_mini['color'] = color_values
 lon, lat = 129.0708802, 35.1153616
 
 # Visualization
-layer11 = pdk.Layer(
-    'ScatterplotLayer',
-    geo_street_transformed_2,
-    get_position = '[longitude, latitude]',
-    get_color = '[255, 255, 255, 255]',
-    get_radius=100
-)
-
-layer22 = pdk.Layer(
-    'ColumnLayer',
-    busan_mini,
-    extruded=True,
-    get_position='[x,y]',
-    get_fill_color = 'color',
-    get_elevation='elevation',
-    elevation_scale=1,
-    elevation_range=[0, max_elevation],
-    pickable=True,
-    auto_highlight=True,
-    radius=100,
-    opacity= 0.01
-)
+layer11 = pdk.Layer('ScatterplotLayer', geo_street_transformed_2, get_position = '[longitude, latitude]', get_color = '[255, 255, 255, 255]', get_radius=100)
+layer22 = pdk.Layer('ColumnLayer', busan_mini, extruded=True, get_position='[x,y]', get_fill_color = 'color', get_elevation='elevation', elevation_scale=1, elevation_range=[0, max_elevation], pickable=True, auto_highlight=True, radius=100, opacity= 0.01)
 
 view_state = pdk.ViewState(longitude= lon, latitude= lat, zoom=12.5, pitch=70, bearing=-27.36)
 r = pdk.Deck(layers=[layer11, layer22], initial_view_state=view_state)
