@@ -5,7 +5,7 @@ We introduce an indicator called 'green index', based on the google street view 
 To derive the green index, we collect GSV images, convert to HSV, calculate green index and implement spatial interpolation.   
 <p align="center">
   <img src = "README_image/green index process.png" width = "30%"> <br>
-  Figure 1. Steps to obtain green index
+  Figure 1. Steps to obtain green index.
 </p>
         
 This four-step process is necessary to effectively compute the green index, and for a detailed explanation, please refer to the [paper](https://doi.org/10.1038/s41598-023-49845-0), and sample data was stored in the *'DATA'* folder to replicate this calculation.   
@@ -87,7 +87,7 @@ $$d_{\text{haversine}} = 2 \times R \times \arcsin\left(\sqrt{\sin^2\left(\frac{
    
 <p align="center">
   <img src = "/README_image/spatial interpolation.png" width = "60%"> <br>
-  Figure 3. Graphical description of spatial interpolation
+  Figure 3. Graphical description of spatial interpolation.
 </p>   
 
 The following code uses above mathematical form and aggregates the green index with 50 images closest to the transaction point. The final result file is in *Green Index_Spatial Interpolation.csv*.
@@ -240,5 +240,8 @@ data_result = r.to_html('result.html',as_string=True)
 
 Figure 4 illustrates the visualization results. White circles indicate the location of roadside trees retrieved from the Busan Open Data Portal (https://data.busan.go.kr/dataSet/detail.nm?contentId=10&publicdatapk=15040363). The cuboids present the level of greenness assigned to each property; thus they indicate the aggregated green index through spatial interpolation. The height of a cuboid denotes the degree of greenness, that is, the higher the degree of greenness, the higher the height of the cuboid.
 
-
+<p align="center">
+  <img src = "README_image/Visualization.png" width = "30%"> <br>
+  Figure 4. Visualization of interpolated green indices and roadside trees in Busan.
+</p>
 
