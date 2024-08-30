@@ -128,3 +128,10 @@ data_df['Green Index_d'] = Aggregated_Green_Index_Distance
 data_df.to_csv('Write your path',index=False,encoding='utf-8-sig')
 ```
 Through this process, we can get the green index for all points of transaction and all information of hedonic variables including green index is in *Hedonic Dataset.xlsx*.
+
+
+# Visualization
+Using the variable labeled *Green Index* in the *Property Price and Green Index.xlsx* file, we visulize the aggregated green index and the location of roadside trees. White circles indicate the location of roadside trees retrieved from the Busan Open Data Portal (https://data.busan.go.kr/dataSet/detail.nm?contentId=10&publicdatapk=15040363). The cuboids present the level of greenness assigned to each property; thus they indicate the aggregated green index through spatial interpolation. The height of a cuboid denotes the degree of greenness, that is, the higher the degree of greenness, the higher the height of the cuboid.
+Each variable can be visualized through different layers, allowing potential readers to use various visualization methods supported by Pydeck library (https://pydeck.gl/) to visualize not only the green index but also other variables together.
+The green indices located in the outskirts of city tend to reflect lower heights against those in the central area. The GSV images are primarily constructed along roadside scenery; thus, street greenness near waterfronts may depict unfavorable degrees of greenness. Conversely, green indices located in the city center tend to display favorable greenness, specifically along roadside trees (white circles). In this context, the graphical illustration of the spatial distribution of the green indices indicates that the proposed green index can well capture street greenery and reflect the local context of Busan.
+
