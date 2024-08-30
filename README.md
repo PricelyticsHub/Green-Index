@@ -131,6 +131,140 @@ Through this process, we can get the green index for all points of transaction a
 
 
 ## Visualization
-Using the variable labeled *Green Index* in the *Property Price and Green Index.xlsx* file, we visulize the aggregated green index and the location of roadside trees. White circles indicate the location of roadside trees retrieved from the Busan Open Data Portal (https://data.busan.go.kr/dataSet/detail.nm?contentId=10&publicdatapk=15040363). The cuboids present the level of greenness assigned to each property; thus they indicate the aggregated green index through spatial interpolation. The height of a cuboid denotes the degree of greenness, that is, the higher the degree of greenness, the higher the height of the cuboid.
-Each variable can be visualized through different layers, allowing potential readers to use various visualization methods supported by Pydeck library (https://pydeck.gl/) to visualize not only the green index but also other variables together.
+Using the variable labeled *Green Index* in the *Property Price and Green Index.xlsx* file, we visulize the aggregated green index and the location of roadside trees. Each variable can be visualized through different layers, allowing potential readers to use various visualization methods supported by Pydeck library (https://pydeck.gl/) to visualize not only the green index but also other variables together.
+
+The following code is visualization code using green index and location data.
+'''python
+mapbox_key =   # Write your mapbox key of pydeck library
+
+import pydeck
+import mapboxgl
+import pandas as pd
+import csv
+import json
+from IPython.display import HTML
+import colorsys
+
+street = pd.read_csv('Street Greenness.csv')
+
+with open('Street_Greenness.csv', 'r') as f:
+  reader = csv.reader(f)
+  next(reader)
+
+  data = []
+  for line in reader:
+    d = {'latitude': line[0], 'longitude': line[1], }
+    data.append(d)
+
+json_string = json.dumps(data, ensure_ascii=False, indent=2)
+txt_file_path = 'data.txt'
+
+with open(txt_file_path, 'w', encoding='utf-8') as f:
+  f.write(json_string)
+
+with open(txt_file_path, 'r') as f:
+  geo_street = json.load(f)
+
+# Convert *Green Index_Spatial Interpolation.csv* file into json
+busan = pd.read_csv('Green Index_Spatial Interpolation.csv')
+
+with open('Green Index_Spatial Interpolation.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader)
+
+    data = []
+    for line in reader:
+        d = {
+            'latitude': line[6],
+            'longitude': line[5],
+            'properties': {
+                # 'price': line[1],
+                'green index': line[32]}
+        }
+        data.append(d)
+
+json_string = json.dumps(data, ensure_ascii=False, indent=2)
+txt_file_path = 'busan_data.txt'
+
+with open(txt_file_path, 'w', encoding='utf-8') as f:
+    f.write(json_string)
+    
+with open(txt_file_path, "r") as f:
+  geo = json.load(f)
+
+busan_mini = busan[['x', 'y', 'HGVI_50']].copy()
+
+pdk.settings.mapbox_key = mapbox_key
+
+geo_street_transformed_2 = [
+    {"longitude": float(item["longitude"]), "latitude": float(item["latitude"])}
+    for item in geo_street
+]
+
+# Adjusting the hight of cuboids
+def minmax(value, min_value, max_value):
+    return (value - min_value) / (max_value - min_value)
+
+def calculate_color(item):
+    index_value = float(item["properties"]["green index"])
+    minmax_value = minmax(index_value, min_index_value, max_index_value)
+    return [0, 255*minmax_value, 255*(1-minmax_value), 255]
+
+def calculate_elevation(item):
+    index_value2 = float(item["properties"]["green index"])
+    minmax_value = minmax(index_value2, min_index_value, max_index_value)
+    return minmax_value * 3000
+
+geo_transformed_2 = [
+    {
+        "longitude": float(item["longitude"]),
+        "latitude": float(item["latitude"]),
+        "color": calculate_color(item),
+        "elevation": calculate_elevation(item)  # elevation indicates housing price
+    }
+    for item in geo
+]
+
+elevation_values = [int(item['elevation']) for item in geo_transformed_2]
+max_elevation = max(elevation_values)
+
+color_values = [item['color'] for item in geo_transformed_2]
+
+busan_mini['elevation'] = elevation_values
+busan_mini['color'] = color_values
+
+# View point
+lon, lat = 129.0708802, 35.1153616
+
+# Visualization
+layer11 = pdk.Layer(
+    'ScatterplotLayer',
+    geo_street_transformed_2,
+    get_position = '[longitude, latitude]',
+    get_color = '[255, 255, 255, 255]',
+    get_radius=100
+)
+
+layer22 = pdk.Layer(
+    'ColumnLayer',
+    busan_mini,
+    extruded=True,
+    get_position='[x,y]',
+    get_fill_color = 'color',
+    get_elevation='elevation',
+    elevation_scale=1,
+    elevation_range=[0, max_elevation],
+    pickable=True,
+    auto_highlight=True,
+    radius=100,
+    opacity= 0.01
+)
+
+view_state = pdk.ViewState(longitude= lon, latitude= lat, zoom=12.5, pitch=70, bearing=-27.36)
+r = pdk.Deck(layers=[layer11, layer22], initial_view_state=view_state)
+data_result = r.to_html('result.html',as_string=True)
+
+'''
+
+White circles indicate the location of roadside trees retrieved from the Busan Open Data Portal (https://data.busan.go.kr/dataSet/detail.nm?contentId=10&publicdatapk=15040363). The cuboids present the level of greenness assigned to each property; thus they indicate the aggregated green index through spatial interpolation. The height of a cuboid denotes the degree of greenness, that is, the higher the degree of greenness, the higher the height of the cuboid.
 
