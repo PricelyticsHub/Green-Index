@@ -241,7 +241,7 @@ data_result = r.to_html('result.html',as_string=True)
 Figure 4 illustrates the visualization results. White circles indicate the location of roadside trees retrieved from the Busan Open Data Portal (https://data.busan.go.kr/dataSet/detail.nm?contentId=10&publicdatapk=15040363). The cuboids present the level of greenness assigned to each property; thus they indicate the aggregated green index through spatial interpolation. The height of a cuboid denotes the degree of greenness, that is, the higher the degree of greenness, the higher the height of the cuboid.
 
 <p align="center">
-  <img src = "README_image/Visualization.png" width = "30%"> <br>
+  <img src = "README_image/Visualization.png" width = "100%"> <br>
   Figure 4. Visualization of interpolated green indices and roadside trees in Busan.
 </p>
 
