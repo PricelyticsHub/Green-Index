@@ -65,7 +65,7 @@ It can be tested with images from the *'GSV IMAGE'* folder, and the resulting im
 
 <p align="center">
   <img src = "/CONVERTED IMAGE/128.831857 35.090245.jpg" width = "100%"> <br>
-  ure 2. Visualization of street greenness in the view of pedestrian
+  Figure 2. Visualization of street greenness in the view of pedestrian.
 </p>
 
 ## Spatial Interpolation
