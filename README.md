@@ -134,7 +134,7 @@ Through this process, we can get the green index for all points of transaction a
 Using the variable labeled *Green Index* in the *Property Price and Green Index.xlsx* file, we visulize the aggregated green index and the location of roadside trees. Each variable can be visualized through different layers, allowing potential readers to use various visualization methods supported by Pydeck library (https://pydeck.gl/) to visualize not only the green index but also other variables together.
 
 The following code is visualization code using green index and location data.
-'''python
+```python
 mapbox_key =   # Write your mapbox key of pydeck library
 
 import pydeck
@@ -263,8 +263,7 @@ layer22 = pdk.Layer(
 view_state = pdk.ViewState(longitude= lon, latitude= lat, zoom=12.5, pitch=70, bearing=-27.36)
 r = pdk.Deck(layers=[layer11, layer22], initial_view_state=view_state)
 data_result = r.to_html('result.html',as_string=True)
-
-'''
+```
 
 White circles indicate the location of roadside trees retrieved from the Busan Open Data Portal (https://data.busan.go.kr/dataSet/detail.nm?contentId=10&publicdatapk=15040363). The cuboids present the level of greenness assigned to each property; thus they indicate the aggregated green index through spatial interpolation. The height of a cuboid denotes the degree of greenness, that is, the higher the degree of greenness, the higher the height of the cuboid.
 
