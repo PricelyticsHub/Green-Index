@@ -32,6 +32,7 @@ import cv2
 
 warnings.filterwarnings('ignore')
 
+### Setting upper and lower boundaries
 lower_green = (40, 45, 30)
 upper_green = (177, 177, 177)
 
