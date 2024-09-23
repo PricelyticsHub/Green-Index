@@ -147,7 +147,7 @@ import json
 from IPython.display import HTML
 import colorsys
 
-street = pd.read_csv('Roadside trees.xlsx')
+street = pd.read_excel('Roadside trees.xlsx')
 
 with open('Roadside trees.xlsx', 'r') as f:
   reader = csv.reader(f)
@@ -167,10 +167,10 @@ with open(txt_file_path, 'w', encoding='utf-8') as f:
 with open(txt_file_path, 'r') as f:
   geo_street = json.load(f)
 
-# Convert *Green Index_Spatial Interpolation.csv* file into json
-busan = pd.read_csv('Green Index_Spatial Interpolation.csv')
+# Convert *Property Price and Green Index.xlsx* file into json
+busan = pd.read_excel('Property Price and Green Index.xlsx')
 
-with open('Green Index_Spatial Interpolation.csv', 'r') as f:
+with open('Property Price and Green Index.xlsx', 'r') as f:
     reader = csv.reader(f)
     next(reader)
 
