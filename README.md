@@ -32,7 +32,7 @@ import cv2
 
 warnings.filterwarnings('ignore')
 
-### Setting upper and lower boundaries
+# Setting upper and lower boundaries
 lower_green = (40, 45, 30)
 upper_green = (177, 177, 177)
 
@@ -132,7 +132,7 @@ Through this process, we can get the green index for all points of transaction a
 
 
 ## Visualization
-Using the variable labeled *Green Index* in the *Property Price and Green Index.xlsx* file, we visulize the aggregated green index and the location of roadside trees. Each variable can be visualized through different layers, allowing potential readers to use various visualization methods supported by Pydeck library (https://pydeck.gl/) to visualize not only the green index but also other variables together.
+Using *Property Price and Green Index.xlsx* and *Street Greenness.csv* files, we visulize the aggregated green index and the location of roadside trees. Each variable can be visualized through different layers, allowing potential readers to use various visualization methods supported by Pydeck library (https://pydeck.gl/) to visualize not only the green index but also other variables together.
 
 The following code is visualization code using green index and location data.
 ```python
