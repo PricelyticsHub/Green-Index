@@ -132,7 +132,7 @@ Through this process, we can get the green index for all points of transaction a
 
 
 ## Visualization
-Using *Property Price and Green Index.xlsx* and *Street Greenness.csv* files, we visulize the aggregated green index and the location of roadside trees. Each variable can be visualized through different layers, allowing potential readers to use various visualization methods supported by Pydeck library (https://pydeck.gl/) to visualize not only the green index but also other variables together.
+Using *Property Price and Green Index.xlsx* and *Roadside trees.csv* files, we visulize the aggregated green index and the location of roadside trees. Each variable can be visualized through different layers, allowing potential readers to use various visualization methods supported by Pydeck library (https://pydeck.gl/) to visualize not only the green index but also other variables together.
 
 The following code is visualization code using green index and location data.
 ```python
