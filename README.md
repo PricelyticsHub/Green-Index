@@ -28,8 +28,12 @@ $$Green \ index_{i} = pixel_{non-zero}/pixel_{total} * 100$$
 
 The following code is to perform above step:   
 ```python
-import warning
+import os
+import pandas as pd
+import numpy as np
 import cv2
+import matplotlib.image as mpimg
+import warnings
 
 warnings.filterwarnings('ignore')
 
@@ -39,9 +43,13 @@ upper_green = (177, 177, 177)
 
 green_indices = []
 
+os.chdir('Your path')
+
 for i, n in enumerate(os.listdir()):
-  lng, lat = i.split(sep=' ')
-  img = mpimg.imread(i, cv2.IMREAD_COLOR)
+  name = os.path.splitext(n)[0]
+  print(name)
+  lng, lat = name.split(sep=' ')
+  img = mpimg.imread(n, cv2.IMREAD_COLOR)
 
   img_copy = img.copy()
   
@@ -60,7 +68,7 @@ for i, n in enumerate(os.listdir()):
   green_indices.append([lng, lat, green_index])
 
 green_indices = pd.DataFrame(green_indices, columns = ['Longitude', 'Latitude', 'Green Index'])
-green_indices.to_csv('Write your save path',index=False,encoding='utf-8-sig')
+green_indices.to_csv('Your path',index=False,encoding='utf-8-sig')
 ```   
 From this step, we can obtain the street greenness in the view of pedestrian.     
 It can be tested with images from the *'GSV IMAGE'* folder, and the resulting image is stored in the *'CONVERTED IMAGE'* folder.   
