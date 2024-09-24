@@ -106,7 +106,7 @@ import pandas as pd
 from haversine import haversine
 
 data_df = pd.read_('Write your path\Data.csv')
-green_df = pd.read_csv('Write your path\Green.csv')
+green_df = pd.read_csv('Write your path\Street Greenness.csv')
 
 
 Aggregated_Green_Index = []
