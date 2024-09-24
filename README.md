@@ -172,10 +172,10 @@ busan = pd.read_excel(file_path_busan_property)
 data=[]
 for _, row in busan.iterrows():
     d = {
-        'latitude': row[2],  # latitude 열
-        'longitude': row[1],  # longitude 열
+        'latitude': row[2],  # latitude
+        'longitude': row[1],  # longitude
         'properties': {
-            'green index': row[12]  # green index 열
+            'green index': row[12]  # green index
         }
     }
     data.append(d)
@@ -213,7 +213,7 @@ def calculate_color(item):
 def calculate_elevation(item):
     index_value = float(item["properties"]["green index"])
     minmax_value = minmax(index_value, min_index_value, max_index_value)
-    return minmax_value * 3000  # 높이는 3000으로 스케일
+    return minmax_value * 3000 
 
 geo_transformed_2 = [
     {
