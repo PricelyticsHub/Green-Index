@@ -68,7 +68,7 @@ for i, n in enumerate(os.listdir()):
   green_indices.append([lng, lat, green_index])
 
 green_indices = pd.DataFrame(green_indices, columns = ['Longitude', 'Latitude', 'Green Index'])
-green_indices.to_csv('Your path',index=False,encoding='utf-8-sig')
+green_indices.to_csv('Calculated Greenness.csv',index=False,encoding='utf-8-sig')
 ```   
 From this step, we can obtain the street greenness in the view of pedestrian.     
 It can be tested with images from the *'GSV IMAGE'* folder, and the resulting image is stored in the *'CONVERTED IMAGE'* folder.   
@@ -108,10 +108,8 @@ from haversine import haversine
 data_df = pd.read_('Write your path\Data.csv')
 green_df = pd.read_csv('Write your path\Street Greenness.csv')
 
-
 Aggregated_Green_Index = []
 Aggregated_Green_Index_Distance = []
-
 
 num = 1
 for y, x, ind in zip(data_df['y'], data_df['x'], data_df.index):
@@ -135,7 +133,7 @@ for y, x, ind in zip(data_df['y'], data_df['x'], data_df.index):
 
 data_df['Green Index'] = Aggregated_Green_Index
 data_df['Green Index_d'] = Aggregated_Green_Index_Distance
-data_df.to_csv('Write your path',index=False,encoding='utf-8-sig')
+data_df.to_csv('Green Index_Spatial Interpolation.csv',index=False,encoding='utf-8-sig')
 ```
 Through this process, we can get the green index for all points of transaction and all information of hedonic variables including green index is in *Hedonic Dataset.xlsx*.
 
